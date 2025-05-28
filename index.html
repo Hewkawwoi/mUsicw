@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>📋 คำตอบจากแบบฟอร์ม</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f7f7f7;
+    }
+    h1 {
+      color: #444;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <h1>📋 คำตอบล่าสุด</h1>
+  <table id="responsesTable">
+    <thead>
+      <tr>
+        <th>เวลา</th>
+        <th>ชื่อเพลง</th>
+        <th>ผู้ขอ</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <script>
+    window.onload = function() {
+      Tabletop.init({
+        key: 'https://docs.google.com/spreadsheets/d/1b19zy3_O0He43Ds8c5ExJ8jK2Q-5k_3Oo7LWN-HimxA/pubhtml',
+        callback: function(data) {
+          const tbody = document.querySelector("#responsesTable tbody");
+          data.forEach(row => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${row["Timestamp"] || ""}</td>
+              <td>${row["ชื่อเพลง"] || ""}</td>
+              <td>${row["ผู้ขอ"] || ""}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        },
+        simpleSheet: true
+      });
+    }
+  </script>
+</body>
+</html>
